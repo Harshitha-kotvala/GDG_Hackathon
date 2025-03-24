@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthConnect</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .heading-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .heading-container i {
+            margin-right: 15px;
+            font-size: 2.5em;
+            color: #007bff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        .login-form {
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .dashboard {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <div class="heading-container">
+        <i class="fas fa-user-circle"></i> <h1>HealthConnect</h1>
+    </div>
+
+    <div class="container">
+        <div id="login-section" class="login-box">
+            <i class="fas fa-heartbeat icon text-danger" style="font-size: 2.5em;"></i> <h1 class="mb-4">Login</h1>
+            <div id="login-selection">
+                <button id="doctor-login" class="btn btn-primary"><i class="fas fa-user-md"></i> Doctor</button>
+                <button id="patient-login" class="btn btn-success"><i class="fas fa-user-injured"></i> Patient</button>
+            </div>
+            <div id="doctor-login-form" class="login-form">
+                <h2>Doctor Login</h2>
+                <input type="text" id="doctor-username" class="form-control" placeholder="Username">
+                <input type="password" id="doctor-password" class="form-control mt-3" placeholder="Password"> <button id="doctor-submit" class="btn btn-primary mt-3"><i class="fas fa-sign-in-alt"></i> Login</button> </div>
+            <div id="patient-login-form" class="login-form">
+                <h2>Patient Login</h2>
+                <input type="text" id="patient-username" class="form-control" placeholder="Username">
+                <input type="password" id="patient-password" class="form-control mt-3" placeholder="Password"> <button id="patient-submit" class="btn btn-success mt-3"><i class="fas fa-sign-in-alt"></i> Login</button> </div>
+        </div>
+
+        <div id="doctor-dashboard" class="dashboard hidden">
+            <h2>Doctor Dashboard</h2>
+            <p>Welcome, Doctor!</p>
+            <p><a href="javascript:void(0);" onclick="showSection('doctor-patients')">View Patients</a></p>
+            <p><a href="javascript:void(0);" onclick="showSection('doctor-appointments')">Manage Appointments</a></p>
+        </div>
+
+        <div id="patient-dashboard" class="dashboard hidden">
+            <h2>Patient Dashboard</h2>
+            <p>Welcome, Patient!</p>
+            <p><a href="javascript:void(0);" onclick="showSection('patient-appointments')">View Appointments</a></p>
+            <p><a href="javascript:void(0);" onclick="showSection('patient-records')">View Medical Records</a></p>
+        </div>
+
+        <div id="doctor-patients" class="dashboard hidden">
+            <h2>Doctor Patients</h2>
+            <p>This page would display a list of the doctor's patients...</p>
+            <button onclick="showSection('doctor-dashboard')">Back to Dashboard</button>
+        </div>
+
+        <div id="doctor-appointments" class="dashboard hidden">
+            <h2>Doctor Appointments</h2>
+            <p>This page would display a list of the doctor's appointments...</p>
+            <button onclick="showSection('doctor-dashboard')">Back to Dashboard</button>
+        </div>
+
+        <div id="patient-appointments" class="dashboard hidden">
+            <h2>Patient Appointments</h2>
+            <p>This page would display the patient's appointments...</p>
+            <button onclick="showSection('patient-dashboard')">Back to Dashboard</button>
+        </div>
+
+        <div id="patient-records" class="dashboard hidden">
+            <h2>Patient Records</h2>
+            <p>This page would display the patient's medical records...</p>
+            <button onclick="showSection('patient-dashboard')">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginSelection = document.getElementById('login-selection');
+            const doctorLoginForm = document.getElementById('doctor-login-form');
+            const patientLoginForm = document.getElementById('patient-login-form');
+            const doctorDashboard = document.getElementById('doctor-dashboard');
+            const patientDashboard = document.getElementById('patient-dashboard');
+
+            document.getElementById('doctor-login').addEventListener('click', () => {
+                loginSelection.style.display = 'none';
+                doctorLoginForm.style.display = 'block';
+            });
+
+            document.getElementById('patient-login').addEventListener('click', () => {
+                loginSelection.style.display = 'none';
+                patientLoginForm.style.display = 'block';
+            });
+
+            document.getElementById('doctor-submit').addEventListener('click', () => {
+                const username = document.getElementById('doctor-username').value;
+                const password = document.getElementById('doctor-password').value;
+                if (username === 'doctor' && password === 'password') {
+                    loginSelection.style.display = 'none';
+                    doctorLoginForm.style.display = 'none';
+                    doctorDashboard.style.display = 'block';
+                } else {
+                    alert('Invalid credentials');
+                }
+            });
+
+            document.getElementById('patient-submit').addEventListener('click', () => {
+                const username = document.getElementById('patient-username').value;
+                const password = document.getElementById('patient-password').value;
+                if (username === 'patient' && password === 'password') {
+                    loginSelection.style.display = 'none';
+                    patientLoginForm.style.display = 'none';
+                    patientDashboard.style.display = 'block';
+                } else {
+                    alert('Invalid credentials');
+                }
+            });
+        });
+
+        function showSection(sectionId) {
+            const sections = ['login-section', 'doctor-dashboard', 'patient-dashboard', 'doctor-patients', 'doctor-appointments', 'patient-appointments', 'patient-records'];
+            sections.forEach(id => {
+                document.getElementById(id).style.display = (id === sectionId) ? 'block' : 'none';
+            });
+        }
+    </script>
